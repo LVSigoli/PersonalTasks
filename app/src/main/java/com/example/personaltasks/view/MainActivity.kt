@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.collection.mutableIntListOf
 import androidx.core.view.ViewCompat
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity(),onClickListener{
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -56,29 +59,34 @@ class MainActivity : AppCompatActivity(),onClickListener{
 
         activityBinding.taskRv.adapter = taskAdapter
 
-        resultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK) {
-                    val task = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        result.data?.getParcelableExtra(ADDITIONAL_TASK, Task::class.java)
-                    } else {
-                        result.data?.getParcelableExtra(ADDITIONAL_TASK)
-                    }
+        registerForContextMenu(activityBinding.taskRv)
 
-                    task?.let { receivedTask ->
-                        val position = taskList.indexOfFirst { it.id == receivedTask.id }
-                        if (position == -1) {
-                            taskList.add(receivedTask)
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val task = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    result.data?.getParcelableExtra(ADDITIONAL_TASK, Task::class.java)
+                } else {
+                    result.data?.getParcelableExtra(ADDITIONAL_TASK, Task::class.java)
+                }
+
+                task?.let { receivedTask ->
+                    val position = taskList.indexOfFirst { it.id == receivedTask.id }
+                    if (position == -1) {
+                        taskList.add(receivedTask)
+                        thread {
                             mainController.createTask(receivedTask)
-                            taskAdapter.notifyItemInserted(taskList.size - 1)
-                        } else {
-                            taskList[position] = receivedTask
-                            mainController.updateTask(receivedTask)
-                            taskAdapter.notifyItemChanged(position)
                         }
+                        taskAdapter.notifyItemInserted(taskList.size - 1)
+                    } else {
+                        taskList[position] = receivedTask
+                        thread {
+                            mainController.updateTask(receivedTask)
+                        }
+                        taskAdapter.notifyItemChanged(position)
                     }
                 }
             }
+        }
 
             fillTaskList()
     }
@@ -99,6 +107,15 @@ class MainActivity : AppCompatActivity(),onClickListener{
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

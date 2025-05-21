@@ -1,7 +1,7 @@
 package com.example.personaltasks.model
 
 import androidx.room.TypeConverter
-import java.sql.Date
+import java.util.Date
 
 class Converter {
     @TypeConverter
