@@ -47,11 +47,11 @@ Desenvolvido em Kotlin no Android Studio.
 ## Vídeo de demonstração
 
 O vídeo de execução está disponível no arquivo:  
-`PersonalTasks-demo.mp4` (duração máxima: 1 minuto)
+https://somup.com/cThr2OMgNR
 
 ---
 
 ## Observações
 
 - O app foi desenvolvido seguindo os requisitos da disciplina de Desenvolvimento Android.  
-- Código está comentado e estruturado para facilitar manutenção e entendimento.  
+
