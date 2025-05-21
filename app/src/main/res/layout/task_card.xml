@@ -22,12 +22,21 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/descriptionTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descrição"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp" />
+
+        <TextView
             android:id="@+id/dateTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Data"
-            android:textSize="14sp"
-            android:textColor="#888888" />
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:layout_marginTop="4dp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

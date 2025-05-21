@@ -31,5 +31,6 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize"}
-ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion"}
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "kspVersion" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
