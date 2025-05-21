@@ -147,8 +147,10 @@ class MainActivity : AppCompatActivity(),onClickListener{
 
         menu.add("Remover").setOnMenuItemClickListener {
             val taskToRemove = taskList.removeAt(position)
-            mainController.deleteTask(taskToRemove)
-            taskAdapter.notifyItemRemoved(position)
+            thread {
+                mainController.deleteTask(taskToRemove)
+            }
+                taskAdapter.notifyItemRemoved(position)
             true
         }
     }
