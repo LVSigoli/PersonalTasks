@@ -41,14 +41,6 @@ Desenvolvido em Kotlin no Android Studio.
 
 4. Use o menu de opções para criar novas tarefas e clique longo em tarefas para editar/excluir/ver detalhes.
 
----
-
-## Estrutura do projeto
-
-- `view/` - Activities e componentes visuais  
-- `model/` - Classes de dados, constantes e Room entities  
-- `repository/` - Lógica de acesso aos dados (DAO)  
-- `utils/` - Helpers e utilitários  
 
 ---
 
