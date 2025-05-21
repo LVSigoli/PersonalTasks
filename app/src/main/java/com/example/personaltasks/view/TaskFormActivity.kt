@@ -33,7 +33,6 @@ class TaskFormActivity : AppCompatActivity() {
         supportActionBar?.subtitle = "New Task"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Callback para o botão voltar do sistema
         onBackPressedDispatcher.addCallback(this) {
             setResult(RESULT_CANCELED)
             finish()
@@ -71,7 +70,7 @@ class TaskFormActivity : AppCompatActivity() {
                 editTitle.isEnabled = false
                 editDescription.isEnabled = false
                 textSelectedDate.isEnabled = false
-                buttonPickDate.isEnabled = false
+                buttonContainer.isEnabled = false
                 buttonSave.visibility = View.GONE
                 buttonCancel.visibility = View.GONE
             }
@@ -80,7 +79,7 @@ class TaskFormActivity : AppCompatActivity() {
 
     private fun prepareButtonBehaviour(receivedTask: Task?) {
         with(binding) {
-            buttonPickDate.setOnClickListener {
+            textSelectedDate.setOnClickListener {
                 showDatePickerDialog()
             }
 
